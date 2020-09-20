@@ -47,8 +47,8 @@ float Process::CpuUtilization() const{
     }
   }
   totaltime = utime + stime + cutime + cstime;
-  seconds = uptime - (starttime / sysconf(_SC_CLK_TCK));
-  return 100 * ((totaltime / sysconf(_SC_CLK_TCK)) / seconds);
+  seconds = uptime - LinuxParser::UpTime(pid_);
+  return (float(totaltime) / sysconf(_SC_CLK_TCK)) / seconds;
   }
 }
 
