@@ -203,13 +203,15 @@ string LinuxParser::Command(int pid) {
 // REMOVE: [[maybe_unused]] once you define the function
 string LinuxParser::Ram(int pid) {
   std::ifstream stream(kProcDirectory + to_string(pid) + kStatusFilename);
-  string line, a, b;
+  string line, a;
+  int b;
   if (stream.is_open()) {
     while (std::getline(stream, line)) {
       std::istringstream stream(line);
       while (stream >> a >> b) {
         if (a == "VmSize:") {
-          return b;
+          b = b / 1000;
+          return (to_string(b));
     }
       }
     }
