@@ -89,6 +89,7 @@ float LinuxParser::MemoryUtilization() {
     }
   }
   }
+  return 0;
 }
 
 // TODO: Read and return the system uptime
@@ -102,6 +103,7 @@ long LinuxParser::UpTime() {
     stream >> uptime;
     return uptime;
     }
+  return uptime;
 }
 
 // TODO: Read and return the number of jiffies for the system
@@ -121,7 +123,7 @@ long LinuxParser::ActiveJiffies(int pid) {
 //       if (i == 13) {
         
   
-//   return 0;
+  return 0;
 // }
 //     }
 //   }
@@ -150,6 +152,7 @@ float LinuxParser::CpuUtilization() {
   return (total - totalidle) / idle;
     
 }
+  return 0.0;
 }
 
 // TODO: Read and return the total number of processes
@@ -216,6 +219,7 @@ string LinuxParser::Ram(int pid) {
       }
     }
   }
+  return string();
 }
 
 // TODO: Read and return the user ID associated with a process
@@ -233,6 +237,7 @@ string LinuxParser::Uid(int pid) {
       
     }
   }
+  return string();
 }
 
 // TODO: Read and return the user associated with a process
@@ -251,14 +256,15 @@ string LinuxParser::User(int pid) {
         }
   }
   }
-  return string();
+
 }
+    return string();
 }
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::UpTime(int pid) {
   string line, random;
-  long uptime;
+  long uptime{0};
   std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
   if (stream.is_open()) {
   std::getline(stream, line);
@@ -273,4 +279,5 @@ long LinuxParser::UpTime(int pid) {
   }
 }
   }
+  return 0;
 }
