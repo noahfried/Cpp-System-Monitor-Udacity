@@ -293,5 +293,4 @@ long LinuxParser::UpTime(int pid) {
 //   }
 // }
 //   }
-  return 0;
 }
