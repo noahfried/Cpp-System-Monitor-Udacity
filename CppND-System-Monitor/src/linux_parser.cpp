@@ -113,21 +113,21 @@ long LinuxParser::Jiffies() {
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid) {
-//   string line;
-//   std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
-//   if (stream.is_open()) {
+// long LinuxParser::ActiveJiffies(int pid) {
+// //   string line;
+// //   std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
+// //   if (stream.is_open()) {
     
-//     for (int i = 0; i <= 16; i++) {
-//       std::istringstream stream(line)
-//       if (i == 13) {
+// //     for (int i = 0; i <= 16; i++) {
+// //       std::istringstream stream(line)
+// //       if (i == 13) {
         
   
-  return 0;
+//   return 0;
+// // }
+// //     }
+// //   }
 // }
-//     }
-//   }
-}
 // TODO: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() { return 0; }
 
@@ -263,21 +263,35 @@ string LinuxParser::User(int pid) {
 // TODO: Read and return the uptime of a process
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::UpTime(int pid) {
-  string line, random;
-  long uptime{0};
-  std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
-  if (stream.is_open()) {
-  std::getline(stream, line);
-  std::istringstream linestream(line);
-    for(int i = 0; i <= 21; i++) {
-    if (i == 21) {
-      linestream >> uptime;
-      return uptime / sysconf(_SC_CLK_TCK);
+  string line, word;
+  long seconds{0};
+ std::ifstream stream(kProcDirectory + to_string(pid) + kStatFilename);
+  if(stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream stream(line);
+    int word_ix(0);
+    while(stream >> word){
+      if (word_ix == 21){
+        break;
+      }
+      word_ix++;
     }
-    else {
-      linestream >> random;
+    seconds = UpTime() - stof(word)/sysconf(_SC_CLK_TCK);
   }
-}
-  }
+  return seconds;
+
+//   if (stream.is_open()) {
+//   std::getline(stream, line);
+//   std::istringstream linestream(line);
+//     for(int i = 0; i <= 21; i++) {
+//     if (i == 21) {
+//       linestream >> uptime;
+//       return uptime / sysconf(_SC_CLK_TCK);
+//     }
+//     else {
+//       linestream >> random;
+//   }
+// }
+//   }
   return 0;
 }
