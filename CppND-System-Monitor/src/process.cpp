@@ -50,6 +50,7 @@ float Process::CpuUtilization() const{
   seconds = uptime - LinuxParser::UpTime(pid_);
   return (float(totaltime) / sysconf(_SC_CLK_TCK)) / seconds;
   }
+  return 0.0;
 }
 
 // TODO: Return the command that generated this process
