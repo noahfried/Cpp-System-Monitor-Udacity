@@ -279,18 +279,4 @@ long LinuxParser::UpTime(int pid) {
     seconds = UpTime() - stof(word)/sysconf(_SC_CLK_TCK);
   }
   return seconds;
-
-//   if (stream.is_open()) {
-//   std::getline(stream, line);
-//   std::istringstream linestream(line);
-//     for(int i = 0; i <= 21; i++) {
-//     if (i == 21) {
-//       linestream >> uptime;
-//       return uptime / sysconf(_SC_CLK_TCK);
-//     }
-//     else {
-//       linestream >> random;
-//   }
-// }
-//   }
 }

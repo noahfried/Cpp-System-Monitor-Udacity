@@ -20,7 +20,6 @@ float Process::CpuUtilization() const{
   string line;
   string random;
   long starttime;
-  long uptime = LinuxParser::UpTime();
   long utime, stime, cutime, cstime, totaltime, seconds;
   std::ifstream stream(LinuxParser::kProcDirectory + to_string(pid_) + LinuxParser::kStatFilename);
   if (stream.is_open()) {
@@ -47,8 +46,10 @@ float Process::CpuUtilization() const{
     }
   }
   totaltime = utime + stime + cutime + cstime;
-  seconds = uptime - LinuxParser::UpTime(pid_);
-  return (float(totaltime) / sysconf(_SC_CLK_TCK)) / seconds;
+  seconds = LinuxParser::UpTime(pid_);
+  if (seconds > 3){
+    return (float(totaltime) / sysconf(_SC_CLK_TCK)) / seconds;
+  }
   }
   return 0.0;
 }
